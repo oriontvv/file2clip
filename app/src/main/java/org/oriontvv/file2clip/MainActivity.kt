@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         val btnSelect = findViewById<Button>(R.id.btnSelectFile)
         btnSelect.setOnClickListener { openFilePicker() }
 
-        // TV-специфичные настройки
+        // TV-specific
         btnSelect.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
                 openFilePicker()
@@ -37,9 +37,8 @@ class MainActivity : AppCompatActivity() {
     private fun openFilePicker() {
 
         try {
-            // Используем простейший вариант выбора файлов
             val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                type = "*/*"  // Разрешаем все типы файлов
+                type = "*/*" 
                 addCategory(Intent.CATEGORY_OPENABLE)
                 putExtra(Intent.EXTRA_LOCAL_ONLY, true)
             }
@@ -47,23 +46,6 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
         }
-
-//        try {
-//            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-//                type = "text/*"
-//                addCategory(Intent.CATEGORY_OPENABLE)
-//                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-//            }
-//            startActivityForResult(intent, REQUEST_CODE_PICK_FILE)
-//        } catch (e: ActivityNotFoundException) {
-//            Toast.makeText(this, "No file picker available", Toast.LENGTH_LONG).show()
-//        }
-        showToast("open picker")
-//        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
-//            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-//        }
-//        startActivityForResult(intent, REQUEST_CODE_PICK_FILE)
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
